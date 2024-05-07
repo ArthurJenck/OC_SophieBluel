@@ -1,8 +1,18 @@
-# Portfolio-architecte-sophie-bluel
+# OpenClassrooms Projet 3
 
-Code du projet 6 d'intégrateur web.
+## Créez une page web dynamique avec JavaScript
 
-## Information pour le lancer le code
+Rendu du projet n°3 de la formation Développeur Web d'OpenClassrooms : Créez une page web dynamique avec JavaScript.
+Base de code fournie par OpenClassrooms disponible sur la branche intial-code.
 
- - Lancer le backend depuis votre terminal en suivant les instruction du fichier ReadMe.
- - Si vous désirez afficher le code du backend et du frontend, faites le dans 2 instances de VSCode différentes pour éviter tout problème
+### Dates du projet
+
+Apprentissage des cours liés au projet débuté le 17 avril 2024
+Projet pratique débuté le 7 mai 2024
+
+### Auteur
+
+Arthur Jenck  
+https://arthurjenck.com/
+
+<img src="https://i.ibb.co/grKRmmn/Logo-Jaune-PNG.png" width="75">
