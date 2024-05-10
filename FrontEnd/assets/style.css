@@ -103,7 +103,7 @@ nav ul {
 	display: flex;
 	align-items: center;
 	list-style-type: none;
-
+	user-select: none;
 }
 
 nav li {

@@ -1,0 +1,48 @@
+body {
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+nav li:nth-child(3) {
+    font-weight: 600;
+}
+
+main, form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+form {
+    margin-top: 0.5rem;
+    width: 25vw;
+}
+
+form label {
+    margin: 2rem 0 0.5rem 0;
+    align-self: flex-start;
+    font-weight: 500;
+}
+
+form input {
+    height: calc(51rem / 16);
+    width: 100%;
+    border: none;
+    box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+    box-sizing: border-box;
+    padding: 1rem;
+}
+
+form input[type="submit"] {
+    box-sizing: border-box;
+    height: 2.2rem;
+    padding: 0;
+}
+
+form a {
+    color: #3d3d3d;
+    font-weight: 500;
+}
