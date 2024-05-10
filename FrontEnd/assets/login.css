@@ -34,6 +34,7 @@ form input {
     box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
     box-sizing: border-box;
     padding: 1rem;
+    position: relative;
 }
 
 form input[type="submit"] {

@@ -75,3 +75,4 @@ filterInputs.forEach((input) => {
     afficherTravaux(sortedWorks);
   });
 });
+
