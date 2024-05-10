@@ -54,11 +54,16 @@ table {
 }
 
 /** end reset css**/
+html {
+	scroll-behavior: smooth;
+}
+
 body {
 	max-width: 1140px;
 	margin: auto;
 	font-family: 'Work Sans';
 	font-size: 14px;
+	background-color: #fffef8;
 }
 
 header {
@@ -74,7 +79,7 @@ section {
 h1 {
 	display: flex;
 	flex-direction: column;
-	font-family: 'Syne';
+	font-family: 'Syne', Verdana, Geneva, Tahoma, sans-serif;
 	font-size: 22px;
 	font-weight: 800;
 	color: #B1663C
@@ -102,11 +107,16 @@ nav ul {
 }
 
 nav li {
-	padding: 0 10px;
+	margin: 0 10px;
 	font-size: 1.2em;
 }
 
-li:hover {
+nav a {
+	color: #000;
+	text-decoration: none;
+}
+
+nav a:hover {
 	color: #B1663C;
 }
 
@@ -126,7 +136,7 @@ li:hover {
 }
 
 #introduction article {
-	flex: 1
+	flex: 1;
 }
 
 #introduction h2 {
@@ -139,7 +149,37 @@ li:hover {
 
 #portfolio h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin: calc(140rem/16) 0 calc(51rem/16) 0;
+}
+
+.filters {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	gap: 10px;
+	margin-bottom: calc(50rem/16);
+}
+
+.filters input {
+	display: none;
+}
+
+.filters label {
+	display: inline-block;
+	background-color: rgba(0, 0, 0, 0);
+	color: #1D6154;
+	border: 1px solid #1D6154;
+	font-family: 'Syne', Verdana, Geneva, Tahoma, sans-serif;
+	font-weight: 700;
+	font-size: 1rem;
+	cursor: pointer;
+	border-radius: 60px;
+	user-select: none;
+}
+
+.filters input:checked+label, .filters label:hover {
+	background-color: #1D6154;
+	color: #fffef8;
 }
 
 .gallery {
@@ -201,6 +241,7 @@ input[type="submit"] {
 	width: 180px;
 	text-align: center;
 	border-radius: 60px;
+	cursor: pointer;
 }
 
 footer nav ul {
