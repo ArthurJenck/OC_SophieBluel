@@ -130,8 +130,8 @@ form.addEventListener("submit", async (e) => {
   if (inputsValides) {
     try {
       userData = await envoyerIds(mail, password);
-      console.log(userData);
-      // document.location.href = "./index.html";
+      window.localStorage.setItem("userData", JSON.stringify(userData));
+      document.location.href = "./index.html";
     } catch (err) {
       const messageErreur = document.getElementById("error-connexion");
       if (messageErreur != null) {

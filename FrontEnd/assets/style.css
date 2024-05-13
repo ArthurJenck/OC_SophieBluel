@@ -66,6 +66,30 @@ body {
 	background-color: #fffef8;
 }
 
+#edit-dropdown {
+	height: calc(59rem / 16);
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: #000;
+	color: #fff;
+	z-index: 1;
+}
+
+#edit-dropdown::before {
+	content: "\f044";
+	font: var(--fa-font-regular);
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	color: #fff;
+	margin-right: 11px;
+}
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -109,6 +133,8 @@ nav ul {
 nav li {
 	margin: 0 10px;
 	font-size: 1.2em;
+	display: flex;
+	align-items: center;
 }
 
 nav a {
@@ -118,6 +144,11 @@ nav a {
 
 nav a:hover {
 	color: #B1663C;
+}
+
+nav img {
+	width: 20px;
+	height: 20px;
 }
 
 #introduction {
@@ -147,10 +178,52 @@ nav a:hover {
 	margin-bottom: 0.5em;
 }
 
+#portfolio-title {
+	margin: calc(140rem/16) 0 calc(51rem/16) 0;
+	display: flex;
+	position: relative;
+	left: 50%;
+	transform: translate(-30%);
+	width: fit-content;
+	gap: 1.5rem;
+}
+
 #portfolio h2 {
 	text-align: center;
 	margin: calc(140rem/16) 0 calc(51rem/16) 0;
 }
+
+#portfolio-title button {
+	background-color: transparent;
+	border: none;
+	font-family: 'Work Sans', sans-serif;
+	padding: 0;
+	margin-top: 2px;
+	cursor: pointer;
+	padding: 0.5rem;
+	box-sizing: border-box;
+	border-radius: 20px;
+}
+
+#portfolio-title button:hover {
+	outline: 1px #000 solid;
+}
+
+#portfolio-title button:active {
+	background-color: #000;
+	color: #fff;
+}
+
+
+#portfolio-title button::before {
+	content: "\f044";
+	font: var(--fa-font-regular);
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
+	margin-right: 11px;
+}
+
 
 .filters {
 	display: flex;
@@ -221,6 +294,8 @@ nav a:hover {
 	font-size: 1.2em;
 	border: none;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+	padding: 1rem;
+	box-sizing: border-box;
 }
 
 #contact label {

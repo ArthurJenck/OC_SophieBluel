@@ -1,6 +1,20 @@
+// Calcul des padding selon la largeur du bouton
+const labels = document.querySelectorAll(".filters label");
+labels.forEach((label) => {
+  const labelWidth = label.offsetWidth;
+  if (labelWidth < 100) {
+    label.style.padding = `9px ${(100 - labelWidth) / 2}px`;
+  } else if (labelWidth < 150) {
+    label.style.padding = "9px 15px";
+  } else {
+    label.style.padding = "9px 10px";
+  }
+});
+
 // Récupération des travaux et catégories déjà stockés dans le localStorage
-let works = window.localStorage.getItem("SBworks");
-let categories = window.localStorage.getItem("SBcategories");
+let works = window.localStorage.getItem("works");
+let categories = window.localStorage.getItem("categories");
+let userData = JSON.parse(window.localStorage.getItem("userData"));
 
 // Si les données ne sont pas encore stockés, on les fetch et les stock
 if (works === null) {
@@ -8,7 +22,7 @@ if (works === null) {
   works = await works.json();
   const arrayWorks = JSON.stringify(works);
   // L'ajout de SB devant les noms des identifiants permet d'éviter que d'autres sites ne remplacent les données stockées
-  window.localStorage.setItem("SBworks", arrayWorks);
+  window.localStorage.setItem("works", arrayWorks);
 } else {
   works = JSON.parse(works);
 }
@@ -17,7 +31,7 @@ if (categories === null) {
   categories = await fetch("http://localhost:5678/api/categories");
   categories = await categories.json();
   const arrayCateg = JSON.stringify(categories);
-  window.localStorage.setItem("SBcategories", arrayCateg);
+  window.localStorage.setItem("categories", arrayCateg);
 } else {
   categories = JSON.parse(categories);
 }
@@ -49,19 +63,6 @@ const afficherTravaux = (array) => {
 
 afficherTravaux(works);
 
-// Calcul des padding selon la largeur du bouton
-const labels = document.querySelectorAll(".filters label");
-labels.forEach((label) => {
-  const labelWidth = label.offsetWidth;
-  if (labelWidth < 100) {
-    label.style.padding = `9px ${(100 - labelWidth) / 2}px`;
-  } else if (labelWidth < 150) {
-    label.style.padding = "9px 15px";
-  } else {
-    label.style.padding = "9px 10px";
-  }
-});
-
 // Ajout des event listener sur les filtres
 const filterInputs = document.querySelectorAll(".filters input");
 filterInputs.forEach((input) => {
@@ -76,3 +77,26 @@ filterInputs.forEach((input) => {
   });
 });
 
+if (userData != null) {
+  // Ajout de la bannière en haut du site pour le mode édition
+  const editDropDown = document.createElement("p");
+  editDropDown.innerText = "Mode édition";
+  editDropDown.id = "edit-dropdown";
+  document.querySelector("header").before(editDropDown);
+  document.querySelector("body").style.paddingTop = "32px";
+
+  // Ajout de l'indicateur du mode édition au-dessus de la galerie photo
+  const editButton = document.createElement("button");
+  const portfolioTitleContainer = document.createElement("div");
+  editButton.innerText = "modifier";
+  portfolioTitleContainer.id = "portfolio-title";
+  portfolioTitleContainer;
+
+  document.querySelector("#portfolio h2").before(portfolioTitleContainer);
+  console.log(document.querySelector("#portfolio div"));
+  document
+    .getElementById("portfolio-title")
+    .append(document.querySelector("#portfolio h2"));
+  document.getElementById("portfolio-title").append(editButton);
+  document.querySelector("#portfolio-title h2").style.margin = "0";
+}
