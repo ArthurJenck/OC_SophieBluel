@@ -1,22 +1,4 @@
 /**
- * Cette fonction prend un email en paramètre et valide qu'il est au bon format.
- * @param {string} email
- * @return {boolean}
- */
-const validerEmail = (email) => {
-  // Vérification que l'élément n'existe pas encore
-  const messageErreur = document.getElementById("error-mail");
-  if (messageErreur != null) {
-    messageErreur.remove();
-  }
-  const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-  if (emailRegExp.test(email)) {
-    return true;
-  }
-  domCreerErreur("mail");
-};
-
-/**
  * Cette fonction prend un type d'erreur en paramètre et crée la balise correspondante en DOM
  * @param {string} error
  * @return {node}
@@ -43,6 +25,24 @@ const domCreerErreur = (errorType) => {
       "Votre mot de passe doit comporter au moins une majuscule et un chiffre."
     );
   }
+};
+
+/**
+ * Cette fonction prend un email en paramètre et valide qu'il est au bon format.
+ * @param {string} email
+ * @return {boolean}
+ */
+const validerEmail = (email) => {
+  // Vérification que l'élément n'existe pas encore
+  const messageErreur = document.getElementById("error-mail");
+  if (messageErreur != null) {
+    messageErreur.remove();
+  }
+  const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
+  if (emailRegExp.test(email)) {
+    return true;
+  }
+  domCreerErreur("mail");
 };
 
 /**
@@ -92,7 +92,7 @@ const envoyerIds = async (mail, password) => {
   });
   const data = await response.json();
   if (response.status === 200) {
-    return data.userId;
+    return data;
   } else if (response.status === 401) {
     throw new Error("Adresse e-mail ou mot de passe incorrect.");
   } else {
@@ -100,7 +100,7 @@ const envoyerIds = async (mail, password) => {
   }
 };
 
-let userId = null;
+let userData = {};
 // Ajout du submit sur le bouton de connexion
 const form = document.querySelector("form");
 form.addEventListener("submit", async (e) => {
@@ -131,10 +131,20 @@ form.addEventListener("submit", async (e) => {
   // Si le mail et le mot de passe sont valides, on fait une demande de connexion
   if (inputsValides) {
     try {
-      userId = await envoyerIds(mail, password);
-      console.log(userId);
-      document.location.href = "./index.html";
+      userData = await envoyerIds(mail, password);
+      console.log(userData);
+      // document.location.href = "./index.html";
     } catch (err) {
+      const messageErreur = document.getElementById("error-connexion");
+      if (messageErreur != null) {
+        messageErreur.remove();
+      }
+      const errorConnexion = document.createElement("p");
+      errorConnexion.innerText = "Adresse-mail ou mot de passe incorrect.";
+      errorConnexion.id = "error-connexion";
+      errorConnexion.style.position = "absolute";
+      errorConnexion.style.top = `calc(214rem/16)`;
+      document.getElementById("password").after(errorConnexion);
       console.error(err.message);
     }
   }
