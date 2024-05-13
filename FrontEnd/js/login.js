@@ -28,7 +28,7 @@ const domCreerErreur = (errorType) => {
 };
 
 /**
- * Cette fonction prend un email en paramètre et valide qu'il est au bon format.
+ * Cette fonction prend un email en paramètre et valide qu'il est au bon format (bien que ce ne soit pas vraiment nécessaire).
  * @param {string} email
  * @return {boolean}
  */
