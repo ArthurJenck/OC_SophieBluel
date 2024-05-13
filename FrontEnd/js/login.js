@@ -5,69 +5,67 @@
  */
 const domCreerErreur = (errorType) => {
   // Affichage du message d'erreur pour l'utilisateur
+  const errorMessage = document.createElement("p");
+  errorMessage.id = `error-${errorType}`;
+  errorMessage.style.position = "absolute";
+  // Modifications selon le type d'erreur
   if (errorType === "mail") {
-    const errorMail = document.createElement("p");
-    errorMail.innerText = "Veuillez entrer une adresse-mail valide.";
-    errorMail.id = `error-${errorType}`;
-    errorMail.style.position = "absolute";
-    errorMail.style.top = `calc(110rem/16)`;
-    document.getElementById("mail").after(errorMail);
+    errorMessage.style.top = `calc(110rem/16)`;
+    errorMessage.innerText = "Veuillez entrer une adresse-mail valide.";
+    document.getElementById("mail").after(errorMessage);
     throw new Error("Veuillez entrer une adresse-mail valide.");
-  } else {
-    const errorMdp = document.createElement("p");
-    errorMdp.innerText =
+  } else if (errorType === "password") {
+    errorMessage.style.top = `calc(214rem/16)`;
+    errorMessage.innerText =
       "Votre mot de passe doit comporter au moins une majuscule et un chiffre.";
-    errorMdp.id = "error-mdp";
-    errorMdp.style.position = "absolute";
-    errorMdp.style.top = `calc(214rem/16)`;
-    document.getElementById("password").after(errorMdp);
+    document.getElementById("password").after(errorMessage);
     throw new Error(
       "Votre mot de passe doit comporter au moins une majuscule et un chiffre."
     );
+  } else {
+    errorMessage.style.top = `calc(214rem/16)`;
+    errorMessage.innerText = "Adresse-mail ou mot de passe incorrect.";
+    document.getElementById("password").after(errorMessage);
+    throw new Error("Adresse-mail ou mot de passe incorrect.");
   }
 };
 
 /**
- * Cette fonction prend un email en paramètre et valide qu'il est au bon format (bien que ce ne soit pas vraiment nécessaire).
- * @param {string} email
+ * Cette fonction prend une donnee ainsi que son type (adresse-mail ou mot de passe) en paramètre et valide qu'il est au bon format.
+ * @param {string} donnee
  * @return {boolean}
  */
-const validerEmail = (email) => {
-  // Vérification que l'élément n'existe pas encore
-  const messageErreur = document.getElementById("error-mail");
+const validerDonnees = (donnee, typeDonnee) => {
+  typeDonnee = typeDonnee.toLowerCase();
+
+  // Suppression d'un éventuel ancien message d'erreur lié à la donnée
+  const messageErreur = document.getElementById(`error-${typeDonnee}`);
   if (messageErreur != null) {
     messageErreur.remove();
   }
+
+  // Création des RegExp
   const emailRegExp = new RegExp("[a-z0-9._-]+@[a-z0-9._-]+\\.[a-z0-9._-]+");
-  if (emailRegExp.test(email)) {
-    return true;
-  }
-  domCreerErreur("mail");
-};
-
-/**
- * Cette fonction prend un mot de passe en paramètre et valide qu'il est au bon format.
- * @param {string} password
- * @return {boolean}
- */
-const validerMdp = (password) => {
-  // Vérification que l'élément n'existe pas encore
-  const messageErreur = document.getElementById("error-mdp");
-  if (messageErreur != null) {
-    messageErreur.remove();
-  }
-
   const minLength = new RegExp("[a-zA-Z0-9]{2,}");
   const oneDigit = new RegExp("[0-9]");
   const oneUpper = new RegExp("[A-Z]");
+
+  // Vérification des données avec les RegExp
+  if (typeDonnee === "mail" && emailRegExp.test(donnee)) {
+    return true;
+  } else if (typeDonnee === "mail") {
+    domCreerErreur("mail");
+  }
   if (
-    minLength.test(password) &&
-    oneDigit.test(password) &&
-    oneUpper.test(password)
+    typeDonnee === "password" &&
+    minLength.test(donnee) &&
+    oneDigit.test(donnee) &&
+    oneUpper.test(donnee)
   ) {
     return true;
+  } else if (typeDonnee === "password") {
+    domCreerErreur("password");
   }
-  domCreerErreur("mdp");
 };
 
 /**
@@ -115,14 +113,14 @@ form.addEventListener("submit", async (e) => {
   // On vérifie la validité du mail et du mot de passe
   let inputsValides = true;
   try {
-    validerEmail(mail);
+    validerDonnees(mail, "mail");
   } catch (err) {
     console.error("Erreur :", err.message);
     inputsValides = false;
   }
 
   try {
-    validerMdp(password);
+    validerDonnees(password, "password");
   } catch (err) {
     console.error("Erreur :", err.message);
     inputsValides = false;
@@ -139,13 +137,7 @@ form.addEventListener("submit", async (e) => {
       if (messageErreur != null) {
         messageErreur.remove();
       }
-      const errorConnexion = document.createElement("p");
-      errorConnexion.innerText = "Adresse-mail ou mot de passe incorrect.";
-      errorConnexion.id = "error-connexion";
-      errorConnexion.style.position = "absolute";
-      errorConnexion.style.top = `calc(214rem/16)`;
-      document.getElementById("password").after(errorConnexion);
-      console.error(err.message);
+      domCreerErreur("connexion");
     }
   }
 });
