@@ -88,15 +88,44 @@ if (userData != null) {
   // Ajout de l'indicateur du mode édition au-dessus de la galerie photo
   const editButton = document.createElement("button");
   const portfolioTitleContainer = document.createElement("div");
+
   editButton.innerText = "modifier";
   portfolioTitleContainer.id = "portfolio-title";
   portfolioTitleContainer;
 
   document.querySelector("#portfolio h2").before(portfolioTitleContainer);
-  console.log(document.querySelector("#portfolio div"));
   document
     .getElementById("portfolio-title")
     .append(document.querySelector("#portfolio h2"));
   document.getElementById("portfolio-title").append(editButton);
   document.querySelector("#portfolio-title h2").style.margin = "0";
 }
+
+const popupGallery = document.querySelector(".popup-gallery");
+works.forEach((work) => {
+  const galleryItem = document.createElement("figure");
+  galleryItem.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}">
+  <button class="remove-item-btn"><i class="fa-solid fa-trash-can"></i></button>`;
+  popupGallery.appendChild(galleryItem);
+});
+
+const closeModalBtn = document.querySelector("#popup .close-modal-btn");
+const closeModalBtnIcon = document.querySelector("#popup .close-modal-btn i");
+const popupBackground = document.querySelector(".popup-background");
+const popup = document.getElementById("popup");
+document.querySelector(".popup-background").addEventListener("click", (e) => {
+  if (
+    e.target === closeModalBtn ||
+    e.target === popupBackground ||
+    e.target === closeModalBtnIcon
+  ) {
+    popup.classList.remove("active");
+    popupBackground.classList.remove("active");
+  }
+});
+
+const editBtn = document.querySelector("#portfolio-title button");
+editBtn.addEventListener("click", (e) => {
+  popup.classList.add("active");
+  popupBackground.classList.add("active");
+});

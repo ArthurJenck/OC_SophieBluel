@@ -66,6 +66,10 @@ body {
 	background-color: #fffef8;
 }
 
+button {
+	cursor: pointer;
+}
+
 #edit-dropdown {
 	height: calc(59rem / 16);
 	position: fixed;
@@ -199,7 +203,6 @@ nav img {
 	font-family: 'Work Sans', sans-serif;
 	padding: 0;
 	margin-top: 2px;
-	cursor: pointer;
 	padding: 0.5rem;
 	box-sizing: border-box;
 	border-radius: 20px;
@@ -307,7 +310,7 @@ nav img {
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
 
-input[type="submit"] {
+input[type="submit"], .add-item-btn {
 	font-family: 'Syne';
 	font-weight: 700;
 	color: white;
@@ -323,4 +326,121 @@ footer nav ul {
 	display: flex;
 	justify-content: flex-end;
 	margin: 2em
+}
+
+/* Modale d'édition */
+#popup.active, .popup-background.active {
+	display: flex;
+}
+
+.popup-background {
+	display: none;
+	/* Utilisation des svh pour coller aux dernières normes */
+	height: 100lvh;
+	width: 100vw;
+	position: fixed;
+	top: 0;
+	left: 0;
+	background-color: rgba(0, 0, 0, 0.3);
+	z-index: 1;
+	cursor: pointer;
+}
+
+#popup {
+	display: none;
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background-color: #fff;
+	width: auto;
+	max-height: 700px;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	border-radius: 10px;
+	padding: 4rem calc(105rem / 16) 2rem calc(105rem / 16);
+	cursor: default;
+}
+
+
+
+.close-modal-btn {
+	position: absolute;
+	top: 1.5rem;
+	right: 2rem;
+	background-color: transparent;
+	border: none;
+	width: 1.5rem;
+	height: 1.5rem;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.close-modal-btn i {
+	font-size: 1rem;
+}
+
+#popup h3 {
+	font-weight: 400;
+	font-size: calc(26rem / 16);
+	margin-bottom: 3rem;
+	cursor: text;
+}
+
+.popup-gallery {
+	display: grid;
+	gap: 0.5rem;
+	grid-template: auto / repeat(5, 1fr);
+	max-height: calc(415rem / 16);
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+
+#popup figure {
+	position: relative;
+}
+
+#popup img {
+	width: calc(77rem / 16)
+}
+
+.remove-item-btn {
+	position: absolute;
+	top: calc(6rem / 16);
+	right: calc(4.9rem / 16);
+	border-radius: 2px;
+	background-color: #000;
+	height: 1rem;
+	width: 1rem;
+	border: none;
+}
+
+.remove-item-btn i {
+	color: #fff;
+	font-size: calc(11rem / 16);
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -45%);
+}
+
+#popup .modal-separator {
+	background-color: #b3b3b3;
+	width: 100%;
+	height: 1px;
+	margin: 2rem 0 calc(38rem / 16) 0;
+}
+
+.add-item-btn {
+	border: none;
+	padding: calc(9rem / 16) 3rem;
+	box-sizing: content-box;
+	text-wrap: nowrap;
+	display: flex;
+	justify-content: center;
+	width: auto;
+	margin: 0;
 }
