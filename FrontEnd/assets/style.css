@@ -378,7 +378,12 @@ footer nav ul {
 	align-items: center;
 }
 
-.close-modal-btn i {
+.close-modal-btn::before {
+	content: "\f00d";
+	font: var(--fa-font-solid);
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
 	font-size: 1rem;
 }
 
@@ -418,13 +423,19 @@ footer nav ul {
 	border: none;
 }
 
-.remove-item-btn i {
+.remove-item-btn::before {
+	content: "\f2ed";
+	font: var(--fa-font-solid);
+	display: inline-block;
+	text-rendering: auto;
+	-webkit-font-smoothing: antialiased;
 	color: #fff;
-	font-size: calc(11rem / 16);
 	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -45%);
+	font-size: calc(11rem / 16);
+
 }
 
 #popup .modal-separator {

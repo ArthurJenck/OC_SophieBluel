@@ -21,7 +21,6 @@ if (works === null) {
   works = await fetch("http://localhost:5678/api/works");
   works = await works.json();
   const arrayWorks = JSON.stringify(works);
-  // L'ajout de SB devant les noms des identifiants permet d'éviter que d'autres sites ne remplacent les données stockées
   window.localStorage.setItem("works", arrayWorks);
 } else {
   works = JSON.parse(works);
@@ -102,30 +101,67 @@ if (userData != null) {
 }
 
 const popupGallery = document.querySelector(".popup-gallery");
-works.forEach((work) => {
-  const galleryItem = document.createElement("figure");
-  galleryItem.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}">
-  <button class="remove-item-btn"><i class="fa-solid fa-trash-can"></i></button>`;
-  popupGallery.appendChild(galleryItem);
-});
+/**
+ * Cette fonction prend un tableau en paramètre et s'en sert pour créer la galerie sur la modale d'édition.
+ * @param {array} array
+ */
+const galleryPopup = (array) => {
+  array.forEach((work) => {
+    const galleryItem = document.createElement("figure");
+    galleryItem.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}">
+  <button class="remove-item-btn item-${work.id}"></button>`;
+    popupGallery.appendChild(galleryItem);
+  });
+};
+galleryPopup(works);
 
 const closeModalBtn = document.querySelector("#popup .close-modal-btn");
-const closeModalBtnIcon = document.querySelector("#popup .close-modal-btn i");
 const popupBackground = document.querySelector(".popup-background");
 const popup = document.getElementById("popup");
 document.querySelector(".popup-background").addEventListener("click", (e) => {
-  if (
-    e.target === closeModalBtn ||
-    e.target === popupBackground ||
-    e.target === closeModalBtnIcon
-  ) {
+  if (e.target === closeModalBtn || e.target === popupBackground) {
     popup.classList.remove("active");
     popupBackground.classList.remove("active");
   }
 });
 
 const editBtn = document.querySelector("#portfolio-title button");
-editBtn.addEventListener("click", (e) => {
+editBtn.addEventListener("click", () => {
   popup.classList.add("active");
   popupBackground.classList.add("active");
 });
+
+const galleryItems = document.querySelectorAll(".popup-gallery figure");
+const removeButtons = document.querySelectorAll(".remove-item-btn");
+/**
+ * Cette fonction sert à créer les event listeners afin de supprimer des projets du portfolio.
+ */
+console.log(works);
+const applyRemoveBtns = () => {
+  for (let i = 0; i < removeButtons.length; i++) {
+    const button = removeButtons[i];
+    button.index = i + 1;
+    button.addEventListener("click", async (e) => {
+      e.preventDefault();
+      const itemId = button.classList[1].replace("item-", "");
+      console.log(itemId);
+
+      await fetch(`http://localhost:5678/api/works/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "/",
+          Authorization: `Bearer ${userData.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      works = await fetch("http://localhost:5678/api/works");
+      works = await works.json();
+      console.log(works);
+      const arrayWorks = JSON.stringify(works);
+      window.localStorage.setItem("works", arrayWorks);
+      button.parentElement.remove();
+    });
+  }
+};
+
+applyRemoveBtns();

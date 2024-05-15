@@ -90,6 +90,7 @@ const envoyerIds = async (mail, password) => {
   });
   const data = await response.json();
   if (response.status === 200) {
+    // console.log(data);
     return data;
   } else if (response.status === 401) {
     throw new Error("Adresse e-mail ou mot de passe incorrect.");
