@@ -115,13 +115,12 @@ const galleryPopup = (array) => {
 };
 galleryPopup(works);
 
-const closeModalBtn = document.querySelector("#popup .close-modal-btn");
+const closeModalBtn = document.querySelector("#popup .modal-close-btn");
 const popupBackground = document.querySelector(".popup-background");
-const popup = document.getElementById("popup");
 document.querySelector(".popup-background").addEventListener("click", (e) => {
   if (e.target === closeModalBtn || e.target === popupBackground) {
-    popup.classList.remove("active");
     popupBackground.classList.remove("active");
+    addSectionContainer.style.left = "250%";
   }
 });
 
@@ -136,7 +135,6 @@ const removeButtons = document.querySelectorAll(".remove-item-btn");
 /**
  * Cette fonction sert à créer les event listeners afin de supprimer des projets du portfolio.
  */
-console.log(works);
 const applyRemoveBtns = () => {
   for (let i = 0; i < removeButtons.length; i++) {
     const button = removeButtons[i];
@@ -144,24 +142,47 @@ const applyRemoveBtns = () => {
     button.addEventListener("click", async (e) => {
       e.preventDefault();
       const itemId = button.classList[1].replace("item-", "");
-      console.log(itemId);
-
-      await fetch(`http://localhost:5678/api/works/${itemId}`, {
-        method: "DELETE",
-        headers: {
-          Accept: "/",
-          Authorization: `Bearer ${userData.token}`,
-          "Content-Type": "application/json",
-        },
-      });
+      // await fetch(`http://localhost:5678/api/works/${itemId}`, {
+      //   method: "DELETE",
+      //   headers: {
+      //     Accept: "/",
+      //     Authorization: `Bearer ${userData.token}`,
+      //     "Content-Type": "application/json",
+      //   },
+      // });
       works = await fetch("http://localhost:5678/api/works");
       works = await works.json();
-      console.log(works);
       const arrayWorks = JSON.stringify(works);
       window.localStorage.setItem("works", arrayWorks);
-      button.parentElement.remove();
+      // button.parentElement.remove();
+      console.log("delete");
     });
   }
 };
 
 applyRemoveBtns();
+
+// Ajout des catégories dans la modale d'ajout de projet
+const categorySelector = document.getElementById("file-category");
+categories.forEach((category) => {
+  const categoryOption = document.createElement("option");
+  categoryOption.setAttribute("value", category.name);
+  categoryOption.innerText = category.name;
+  categorySelector.appendChild(categoryOption);
+});
+
+// Ajout des event listeners pour ouvrir et fermer la section d'ajout de projet
+const addItemBtn = document.querySelector(".add-item-btn");
+const returnBtn = document.querySelector(".modal-return-btn");
+const addSectionContainer = document.getElementById("popup-section-add");
+addItemBtn.addEventListener("click", () => {
+  addSectionContainer.style.left = "50%";
+});
+returnBtn.addEventListener("click", () => {
+  addSectionContainer.style.left = "250%";
+});
+
+const popupSubmit = document.querySelector('.popup-form input[type="submit"]');
+popupSubmit.addEventListener("click", (e) => {
+  e.preventDefault();
+});

@@ -77,12 +77,36 @@
 
     <div class="popup-background">
       <div id="popup">
-        <button class="close-modal-btn"></button>
-        <h3>Galerie photo</h3>
-        <div class="popup-gallery">
-        </div>
-        <span class="modal-separator"></span>
-        <button class="add-item-btn">Ajouter une photo</button>
+        <section class="popup-section-remove">
+          <button class="modal-close-btn"></button>
+          <h3>Galerie photo</h3>
+          <div class="popup-gallery">
+          </div>
+          <span class="modal-separator"></span>
+          <button class="add-item-btn">Ajouter une photo</button>
+        </section>
+
+        <section id="popup-section-add">
+          <button class="modal-return-btn"></button>
+          <h3>Ajout photo</h3>
+          <form action="#" method="post" class="popup-form">
+            <label for="file-picture">
+              <img src="./assets/icons/placeholder.png" alt="placeholder">
+              <!-- Impossible d'utiliser un button dans un label car il est immédiatement considéré comme un submit. De même, impossible d'ajouter la balise input dans le label, car on ne peut pas changer le texte sur le bouton. -->
+              <span class="form-picture-btn">+ Ajouter photo</span>
+              <p>jpg, png : 4mo max</p>
+            </label>
+            <input type="file" name="picture" id="file-picture">
+            <label for="file-title">Titre</label>
+            <input type="text" name="title" id="file-title">
+            <label for="file-category">Catégorie</label>
+            <select name="category" id="file-category">
+              <option value=""></option>
+            </select>
+            <span class="modal-separator"></span>
+            <input type="submit" value="Valider">
+          </form>
+        </section>
       </div>
     </div>
   </main>

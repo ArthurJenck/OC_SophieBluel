@@ -206,6 +206,7 @@ nav img {
 	padding: 0.5rem;
 	box-sizing: border-box;
 	border-radius: 20px;
+	user-select: none;
 }
 
 #portfolio-title button:hover {
@@ -347,7 +348,7 @@ footer nav ul {
 }
 
 #popup {
-	display: none;
+	display: flex;
 	position: absolute;
 	top: 50%;
 	left: 50%;
@@ -355,17 +356,20 @@ footer nav ul {
 	background-color: #fff;
 	width: auto;
 	max-height: 700px;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	border-radius: 10px;
 	padding: 4rem calc(105rem / 16) 2rem calc(105rem / 16);
 	cursor: default;
+	overflow-x: hidden;
 }
 
+#popup section {
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
 
-
-.close-modal-btn {
+.modal-close-btn, .modal-return-btn {
 	position: absolute;
 	top: 1.5rem;
 	right: 2rem;
@@ -376,9 +380,10 @@ footer nav ul {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	z-index: 2;
 }
 
-.close-modal-btn::before {
+.modal-close-btn::before, .modal-return-btn::before {
 	content: "\f00d";
 	font: var(--fa-font-solid);
 	display: inline-block;
@@ -393,6 +398,7 @@ footer nav ul {
 	margin-bottom: 3rem;
 	cursor: text;
 }
+
 
 .popup-gallery {
 	display: grid;
@@ -435,7 +441,6 @@ footer nav ul {
 	left: 50%;
 	transform: translate(-50%, -45%);
 	font-size: calc(11rem / 16);
-
 }
 
 #popup .modal-separator {
@@ -445,13 +450,108 @@ footer nav ul {
 	margin: 2rem 0 calc(38rem / 16) 0;
 }
 
-.add-item-btn {
+.add-item-btn, .popup-form input[type="submit"] {
 	border: none;
+	width: calc(236rem / 16);
 	padding: calc(9rem / 16) 3rem;
-	box-sizing: content-box;
 	text-wrap: nowrap;
 	display: flex;
 	justify-content: center;
-	width: auto;
 	margin: 0;
+}
+
+#popup-section-add {
+	position: absolute;
+	top: 0;
+	left: 250%;
+	transform: translate(-50%, 0);
+	background-color: #fff;
+	width: 100%;
+	height: 100%;
+	border-radius: 10px;
+	transition: left 0.3s ease-in-out;
+}
+
+.modal-return-btn {
+	left: 2rem;
+}
+
+.modal-return-btn::before {
+	content: "\f060";
+	font-size: 1.3rem;
+}
+
+#popup-section-add h3 {
+	margin-top: 4rem;
+	margin-bottom: 2rem;
+}
+
+.popup-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: space-between;
+	height: 100%;
+	margin-bottom: calc(55rem / 16);
+}
+
+label[for="file-picture"] {
+	background-color: #E8F1F6;
+	width: calc(420rem / 16);
+	padding: 1rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: pointer;
+	margin-bottom: 1rem;
+}
+
+.form-picture-btn {
+	margin-top: 0.2rem;
+	border: 0;
+	background-color: #CBD6DC;
+	color: #306685;
+	font-weight: 500;
+	font-size: 0.9rem;
+	font-family: 'Work Sans';
+	padding: calc(10rem / 16) 2rem;
+	border-radius: 50px;
+}
+
+.form-picture-btn:hover {
+	background-color: #306685;
+	color: #CBD6DC;
+}
+
+label[for="file-picture"] p {
+	font-size: 10px;
+}
+
+#file-picture {
+	display: none;
+}
+
+label[for="file-title"], label[for="file-category"] {
+	align-self: flex-start;
+}
+
+#file-title, #file-category {
+	align-self: flex-start;
+	width: 100%;
+	height: 3rem;
+	border: 0;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
+	margin: calc(10rem / 16) 0 calc(21rem / 16) 0;
+	padding: 1rem;
+	box-sizing: border-box;
+}
+
+#file-category {
+	margin-bottom: 0;
+	border-right: 1.7rem solid transparent;
+}
+
+#popup-section-add .modal-separator {
+	margin: 2rem 0 2rem 0;
 }
