@@ -109,7 +109,7 @@ const galleryPopup = (array) => {
   array.forEach((work) => {
     const galleryItem = document.createElement("figure");
     galleryItem.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}">
-  <button class="remove-item-btn item-${work.id}"></button>`;
+  <button data-work-id="${work.id}" class="remove-item-btn"></button>`;
     popupGallery.appendChild(galleryItem);
   });
 };
@@ -141,7 +141,8 @@ const applyRemoveBtns = () => {
     button.index = i + 1;
     button.addEventListener("click", async (e) => {
       e.preventDefault();
-      const itemId = button.classList[1].replace("item-", "");
+      const itemId = button.getAttribute("data-work-id");
+      console.log(itemId);
       // await fetch(`http://localhost:5678/api/works/${itemId}`, {
       //   method: "DELETE",
       //   headers: {

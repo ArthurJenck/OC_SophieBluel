@@ -71,7 +71,7 @@ button {
 }
 
 #edit-dropdown {
-	height: calc(59rem / 16);
+	height: 3.7rem;
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -183,7 +183,7 @@ nav img {
 }
 
 #portfolio-title {
-	margin: calc(140rem/16) 0 calc(51rem/16) 0;
+	margin: 8.7rem 0 3.2rem 0;
 	display: flex;
 	position: relative;
 	left: 50%;
@@ -194,7 +194,7 @@ nav img {
 
 #portfolio h2 {
 	text-align: center;
-	margin: calc(140rem/16) 0 calc(51rem/16) 0;
+	margin: 8.7rem 0 3.2rem 0;
 }
 
 #portfolio-title button {
@@ -234,7 +234,7 @@ nav img {
 	justify-content: center;
 	align-items: center;
 	gap: 10px;
-	margin-bottom: calc(50rem/16);
+	margin-bottom: 3.1rem;
 }
 
 .filters input {
@@ -357,7 +357,7 @@ footer nav ul {
 	width: auto;
 	max-height: 700px;
 	border-radius: 10px;
-	padding: 4rem calc(105rem / 16) 2rem calc(105rem / 16);
+	padding: 4rem 6.6rem 2rem 6.6rem;
 	cursor: default;
 	overflow-x: hidden;
 }
@@ -394,7 +394,7 @@ footer nav ul {
 
 #popup h3 {
 	font-weight: 400;
-	font-size: calc(26rem / 16);
+	font-size: 1.6rem;
 	margin-bottom: 3rem;
 	cursor: text;
 }
@@ -404,7 +404,7 @@ footer nav ul {
 	display: grid;
 	gap: 0.5rem;
 	grid-template: auto / repeat(5, 1fr);
-	max-height: calc(415rem / 16);
+	max-height: 26rem;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -415,13 +415,13 @@ footer nav ul {
 }
 
 #popup img {
-	width: calc(77rem / 16)
+	width: 4.8rem;
 }
 
 .remove-item-btn {
 	position: absolute;
-	top: calc(6rem / 16);
-	right: calc(4.9rem / 16);
+	top: 0.37rem;
+	right: 0.3rem;
 	border-radius: 2px;
 	background-color: #000;
 	height: 1rem;
@@ -439,21 +439,21 @@ footer nav ul {
 	position: absolute;
 	top: 50%;
 	left: 50%;
-	transform: translate(-50%, -45%);
-	font-size: calc(11rem / 16);
+	transform: translate(-50%, -50%);
+	font-size: 0.7rem;
 }
 
 #popup .modal-separator {
 	background-color: #b3b3b3;
 	width: 100%;
 	height: 1px;
-	margin: 2rem 0 calc(38rem / 16) 0;
+	margin: 2rem 0 2.4rem 0;
 }
 
 .add-item-btn, .popup-form input[type="submit"] {
 	border: none;
-	width: calc(236rem / 16);
-	padding: calc(9rem / 16) 3rem;
+	width: 14.7rem;
+	padding: 0.6rem 3rem;
 	text-wrap: nowrap;
 	display: flex;
 	justify-content: center;
@@ -492,12 +492,12 @@ footer nav ul {
 	align-items: center;
 	justify-content: space-between;
 	height: 100%;
-	margin-bottom: calc(55rem / 16);
+	margin-bottom: 3.4rem;
 }
 
 label[for="file-picture"] {
 	background-color: #E8F1F6;
-	width: calc(420rem / 16);
+	width: 26.2rem;
 	padding: 1rem;
 	display: flex;
 	flex-direction: column;
@@ -515,7 +515,7 @@ label[for="file-picture"] {
 	font-weight: 500;
 	font-size: 0.9rem;
 	font-family: 'Work Sans';
-	padding: calc(10rem / 16) 2rem;
+	padding: 0.6rem 2rem;
 	border-radius: 50px;
 }
 
@@ -542,7 +542,7 @@ label[for="file-title"], label[for="file-category"] {
 	height: 3rem;
 	border: 0;
 	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.09);
-	margin: calc(10rem / 16) 0 calc(21rem / 16) 0;
+	margin: 0.6rem 0 1.3rem 0;
 	padding: 1rem;
 	box-sizing: border-box;
 }
@@ -550,8 +550,4 @@ label[for="file-title"], label[for="file-category"] {
 #file-category {
 	margin-bottom: 0;
 	border-right: 1.7rem solid transparent;
-}
-
-#popup-section-add .modal-separator {
-	margin: 2rem 0 2rem 0;
 }
