@@ -492,19 +492,24 @@ footer nav ul {
 	align-items: center;
 	justify-content: space-between;
 	height: 100%;
-	margin-bottom: 3.4rem;
+	padding-bottom: 2rem;
+	position: relative;
 }
 
 label[for="file-picture"] {
 	background-color: #E8F1F6;
 	width: 26.2rem;
-	padding: 1rem;
+	height: 10.1rem;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	gap: 0.5rem;
 	cursor: pointer;
 	margin-bottom: 1rem;
+}
+
+label[for="file-picture"] img {
+	margin-top: 1rem;
 }
 
 .form-picture-btn {
@@ -526,6 +531,7 @@ label[for="file-picture"] {
 
 label[for="file-picture"] p {
 	font-size: 10px;
+	margin-bottom: 1rem;
 }
 
 #file-picture {
@@ -550,4 +556,11 @@ label[for="file-title"], label[for="file-category"] {
 #file-category {
 	margin-bottom: 0;
 	border-right: 1.7rem solid transparent;
+}
+
+.popup-error {
+	position: absolute;
+	font-size: 0.7rem;
+	top: 0;
+	left: 0;
 }

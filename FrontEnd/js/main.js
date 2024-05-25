@@ -42,9 +42,9 @@ if (categories === null) {
  * @return {object}
  */
 const gallery = document.querySelector(".gallery");
-const afficherTravaux = (array) => {
+const afficherTravaux = (worksList) => {
   gallery.innerHTML = "";
-  array.forEach((work) => {
+  worksList.forEach((work) => {
     const figureTag = document.createElement("figure");
     const imageTag = document.createElement("img");
     const figcaptionTag = document.createElement("figcaption");
@@ -106,6 +106,7 @@ const popupGallery = document.querySelector(".popup-gallery");
  * @param {array} array
  */
 const galleryPopup = (array) => {
+  popupGallery.innerHTML = "";
   array.forEach((work) => {
     const galleryItem = document.createElement("figure");
     galleryItem.innerHTML = `<img src="${work.imageUrl}" alt="${work.title}">
@@ -130,33 +131,37 @@ editBtn.addEventListener("click", () => {
   popupBackground.classList.add("active");
 });
 
-const galleryItems = document.querySelectorAll(".popup-gallery figure");
-const removeButtons = document.querySelectorAll(".remove-item-btn");
+const redefineWorks = async () => {
+  works = await fetch("http://localhost:5678/api/works");
+  works = await works.json();
+  works = JSON.stringify(works);
+  window.localStorage.setItem("works", works);
+  works = JSON.parse(works);
+  afficherTravaux(works);
+  galleryPopup(works);
+  applyRemoveBtns();
+};
+
 /**
  * Cette fonction sert à créer les event listeners afin de supprimer des projets du portfolio.
  */
 const applyRemoveBtns = () => {
+  const removeButtons = document.querySelectorAll(".remove-item-btn");
   for (let i = 0; i < removeButtons.length; i++) {
     const button = removeButtons[i];
     button.index = i + 1;
     button.addEventListener("click", async (e) => {
       e.preventDefault();
       const itemId = button.getAttribute("data-work-id");
-      console.log(itemId);
-      // await fetch(`http://localhost:5678/api/works/${itemId}`, {
-      //   method: "DELETE",
-      //   headers: {
-      //     Accept: "/",
-      //     Authorization: `Bearer ${userData.token}`,
-      //     "Content-Type": "application/json",
-      //   },
-      // });
-      works = await fetch("http://localhost:5678/api/works");
-      works = await works.json();
-      const arrayWorks = JSON.stringify(works);
-      window.localStorage.setItem("works", arrayWorks);
-      // button.parentElement.remove();
-      console.log("delete");
+      await fetch(`http://localhost:5678/api/works/${itemId}`, {
+        method: "DELETE",
+        headers: {
+          Accept: "/",
+          Authorization: `Bearer ${userData.token}`,
+          "Content-Type": "application/json",
+        },
+      });
+      redefineWorks();
     });
   }
 };
@@ -183,7 +188,94 @@ returnBtn.addEventListener("click", () => {
   addSectionContainer.style.left = "250%";
 });
 
+// Formulaire d'ajout de projet
+
+// Ajout de la preview de l'image dans la modale
+const imagePreview = () => {
+  const fileImgPreview = document.querySelector(
+    'label[for="file-picture"] img'
+  );
+  const addImgBtn = document.querySelector(".form-picture-btn");
+  const imgInfoText = document.querySelector('label[for="file-picture"] p');
+  const fileImg = document.getElementById("file-picture").files[0];
+  const reader = new FileReader();
+
+  reader.addEventListener("load", () => {
+    fileImgPreview.src = reader.result;
+    fileImgPreview.style.height = "100%";
+    fileImgPreview.style.width = "auto";
+    fileImgPreview.style.marginTop = "0";
+    addImgBtn.remove();
+    imgInfoText.remove();
+  });
+
+  if (fileImg) {
+    reader.readAsDataURL(fileImg);
+  }
+};
+
+const fileImgInput = document.getElementById("file-picture");
+fileImgInput.addEventListener("change", () => {
+  imagePreview();
+});
+
+// Fonctionnement du formulaire
+
+// Vérification qu'il n'y a pas de champ vide dans le formulaire
+const checkRequired = (img, name, categ) => {
+  const formContainer = document.querySelector(".popup-form");
+  if (document.querySelector(".popup-error")) {
+    document.querySelector(".popup-error").remove();
+  }
+  if (!img) {
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("popup-error");
+    errorMessage.innerText = "Veuillez ajouter la photographie du projet.";
+    errorMessage.style.top = "10.1rem";
+    formContainer.appendChild(errorMessage);
+  } else if (!name) {
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("popup-error");
+    errorMessage.innerText = "Veuillez ajouter le titre du projet.";
+    errorMessage.style.top = "15.7rem";
+    formContainer.appendChild(errorMessage);
+  } else if (!categ) {
+    const errorMessage = document.createElement("p");
+    errorMessage.classList.add("popup-error");
+    errorMessage.innerText = "Veuillez ajouter la catégorie du projet.";
+    errorMessage.style.top = "21.4rem";
+    formContainer.appendChild(errorMessage);
+  } else {
+    return true;
+  }
+};
+
+const addWork = async () => {
+  const workImg = document.getElementById("file-picture").files[0];
+  const workName = document.getElementById("file-title").value;
+  const wantedCateg = document.getElementById("file-category").value;
+  const workCateg = categories.find((categ) => categ.name === wantedCateg).id;
+  console.log(workCateg);
+  if (checkRequired(workImg, workName, workCateg)) {
+    const fetchBody = new FormData();
+    fetchBody.append("image", workImg);
+    fetchBody.append("title", workName);
+    fetchBody.append("category", workCateg);
+
+    await fetch("http://localhost:5678/api/works", {
+      body: fetchBody,
+      headers: {
+        Accept: "application/json",
+        Authorization: `Bearer ${userData.token}`,
+      },
+      method: "POST",
+    });
+    redefineWorks();
+  }
+};
+
 const popupSubmit = document.querySelector('.popup-form input[type="submit"]');
 popupSubmit.addEventListener("click", (e) => {
   e.preventDefault();
+  addWork();
 });
