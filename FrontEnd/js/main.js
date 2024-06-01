@@ -94,7 +94,7 @@ filterInputs.forEach((input) => {
   });
 });
 
-if (userData != null) {
+if (userData) {
   // Ajout de la bannière en haut du site pour le mode édition
   const editDropDown = document.createElement("p");
   editDropDown.innerText = "Mode édition";
@@ -116,6 +116,24 @@ if (userData != null) {
     .append(document.querySelector("#portfolio h2"));
   document.getElementById("portfolio-title").append(editButton);
   document.querySelector("#portfolio-title h2").style.margin = "0";
+
+  // Ouverture de la modale
+  const editBtn = document.querySelector("#portfolio-title button");
+  editBtn.addEventListener("click", () => {
+    popup.classList.add("active");
+    popupBackground.classList.add("active");
+  });
+
+  // Possibilité de se déconnecter
+  const navLnks = document.querySelectorAll("nav li");
+  const logLnk = Array.from(navLnks).find((link) => link.innerText === "login");
+  logLnk.innerHTML = "<a href='#'>logout</a>";
+
+  logLnk.addEventListener("click", () => {
+    userData = undefined;
+    localStorage.removeItem("userData");
+    location.reload();
+  });
 }
 
 const popupGallery = document.querySelector(".popup-gallery");
@@ -142,14 +160,6 @@ document.querySelector(".popup-background").addEventListener("click", (e) => {
     addSectionContainer.style.left = "250%";
   }
 });
-
-if (userData) {
-  const editBtn = document.querySelector("#portfolio-title button");
-  editBtn.addEventListener("click", () => {
-    popup.classList.add("active");
-    popupBackground.classList.add("active");
-  });
-}
 
 const redefineWorks = async () => {
   works = await fetch("http://localhost:5678/api/works");
