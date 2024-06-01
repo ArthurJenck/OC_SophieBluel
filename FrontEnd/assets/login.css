@@ -3,7 +3,6 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    position: relative;
 }
 
 nav li:nth-child(3) {
@@ -60,4 +59,8 @@ form p {
 form a {
     color: #3d3d3d;
     font-weight: 500;
+}
+
+footer {
+    bottom: 0;
 }

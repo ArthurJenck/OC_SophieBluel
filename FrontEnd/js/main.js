@@ -1,16 +1,3 @@
-// Calcul des padding selon la largeur du bouton
-const labels = document.querySelectorAll(".filters label");
-labels.forEach((label) => {
-  const labelWidth = label.offsetWidth;
-  if (labelWidth < 100) {
-    label.style.padding = `9px ${(100 - labelWidth) / 2}px`;
-  } else if (labelWidth < 150) {
-    label.style.padding = "9px 15px";
-  } else {
-    label.style.padding = "9px 10px";
-  }
-});
-
 // Récupération des travaux et catégories déjà stockés dans le localStorage
 let works = window.localStorage.getItem("works");
 let categories = window.localStorage.getItem("categories");
@@ -34,6 +21,37 @@ if (categories === null) {
 } else {
   categories = JSON.parse(categories);
 }
+
+// Génération des filtres
+const filtersContainer = document.querySelector(".filters");
+categories.forEach((categ) => {
+  const categInput = document.createElement("input");
+  const categLabel = document.createElement("label");
+  const idName = categ.name.toLocaleLowerCase().replace(/ /g, "-");
+  categInput.setAttribute("type", "radio");
+  categInput.setAttribute("name", "filter");
+  categInput.setAttribute("id", `${idName}`);
+  categInput.setAttribute("value", `${categ.name}`);
+
+  categLabel.setAttribute("for", `${idName}`);
+  categLabel.innerText = categ.name;
+
+  filtersContainer.appendChild(categInput);
+  filtersContainer.appendChild(categLabel);
+});
+
+// Calcul des padding selon la largeur du bouton
+const labels = document.querySelectorAll(".filters label");
+labels.forEach((label) => {
+  const labelWidth = label.offsetWidth;
+  if (labelWidth < 100) {
+    label.style.padding = `9px ${(100 - labelWidth) / 2}px`;
+  } else if (labelWidth < 150) {
+    label.style.padding = "9px 15px";
+  } else {
+    label.style.padding = "9px 10px";
+  }
+});
 
 // Ajout des travaux dans le HTML à l'aide d'une fonction qu'on pourra appeler plusieurs fois plus tard
 /**
@@ -125,11 +143,13 @@ document.querySelector(".popup-background").addEventListener("click", (e) => {
   }
 });
 
-const editBtn = document.querySelector("#portfolio-title button");
-editBtn.addEventListener("click", () => {
-  popup.classList.add("active");
-  popupBackground.classList.add("active");
-});
+if (userData) {
+  const editBtn = document.querySelector("#portfolio-title button");
+  editBtn.addEventListener("click", () => {
+    popup.classList.add("active");
+    popupBackground.classList.add("active");
+  });
+}
 
 const redefineWorks = async () => {
   works = await fetch("http://localhost:5678/api/works");
