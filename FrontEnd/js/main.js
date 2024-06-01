@@ -192,6 +192,14 @@ const applyRemoveBtns = () => {
         },
       });
       redefineWorks();
+      const confirmMsg = document.createElement("p");
+      confirmMsg.classList.add("edit-confirm");
+      confirmMsg.innerText = "Projet supprimé";
+      confirmMsg.style.backgroundColor = "#ce3939";
+      document.body.appendChild(confirmMsg);
+      setTimeout(() => {
+        confirmMsg.remove();
+      }, 4000);
     });
   }
 };
@@ -273,7 +281,7 @@ const checkRequired = (img, name, categ) => {
     const errorMessage = document.createElement("p");
     errorMessage.classList.add("popup-error");
     errorMessage.innerText = "Veuillez ajouter la catégorie du projet.";
-    errorMessage.style.top = "21.4rem";
+    errorMessage.style.top = "21.8rem";
     formContainer.appendChild(errorMessage);
   } else {
     return true;
@@ -284,12 +292,11 @@ const addWork = async () => {
   const workImg = document.getElementById("file-picture").files[0];
   const workName = document.getElementById("file-title").value;
   const wantedCateg = document.getElementById("file-category").value;
-  const workCateg = categories.find((categ) => categ.name === wantedCateg).id;
-  console.log(workCateg);
-  if (checkRequired(workImg, workName, workCateg)) {
+  if (checkRequired(workImg, workName, wantedCateg)) {
     const fetchBody = new FormData();
     fetchBody.append("image", workImg);
     fetchBody.append("title", workName);
+    const workCateg = categories.find((categ) => categ.name === wantedCateg).id;
     fetchBody.append("category", workCateg);
 
     await fetch("http://localhost:5678/api/works", {
@@ -301,6 +308,16 @@ const addWork = async () => {
       method: "POST",
     });
     redefineWorks();
+    popupBackground.classList.remove("active");
+    addSectionContainer.style.left = "250%";
+    const confirmMsg = document.createElement("p");
+    confirmMsg.classList.add("edit-confirm");
+    confirmMsg.innerText = "Projet ajouté";
+    confirmMsg.style.backgroundColor = "#1D6154";
+    document.body.appendChild(confirmMsg);
+    setTimeout(() => {
+      confirmMsg.remove();
+    }, 4000);
   }
 };
 

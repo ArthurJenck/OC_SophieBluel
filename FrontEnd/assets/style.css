@@ -323,6 +323,10 @@ input[type="submit"], .add-item-btn {
 	cursor: pointer;
 }
 
+#popup-section-add input[type="submit"] {
+	background-color: #A7A7A7;
+}
+
 footer {
 	position: absolute;
 	left: 0;
@@ -571,4 +575,27 @@ label[for="file-title"], label[for="file-category"] {
 	font-size: 0.7rem;
 	top: 0;
 	left: 0;
+}
+
+@keyframes fadeOut {
+	0% {
+		opacity: 1;
+	}
+
+	100% {
+		opacity: 0;
+	}
+}
+
+.edit-confirm {
+	background-color: #1D6154;
+	color: #fff;
+	position: fixed;
+	bottom: 6rem;
+	left: 50%;
+	padding: 1rem;
+	border-radius: 20px;
+	z-index: 1;
+	animation: fadeOut 1s ease-out 2s;
+	animation-fill-mode: forwards;
 }
