@@ -323,10 +323,18 @@ input[type="submit"], .add-item-btn {
 	cursor: pointer;
 }
 
+footer {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	box-sizing: border-box;
+	background-color: #fff;
+}
+
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin: 2em;
 }
 
 /* Modale d'édition */
