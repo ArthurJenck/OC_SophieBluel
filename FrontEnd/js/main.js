@@ -120,7 +120,6 @@ if (userData) {
   // Ouverture de la modale
   const editBtn = document.querySelector("#portfolio-title button");
   editBtn.addEventListener("click", () => {
-    popup.classList.add("active");
     popupBackground.classList.add("active");
   });
 
@@ -158,6 +157,7 @@ document.querySelector(".popup-background").addEventListener("click", (e) => {
   if (e.target === closeModalBtn || e.target === popupBackground) {
     popupBackground.classList.remove("active");
     addSectionContainer.style.left = "250%";
+    rmvSectionContainer.style.right = "50%";
   }
 });
 
@@ -219,11 +219,14 @@ categories.forEach((category) => {
 const addItemBtn = document.querySelector(".add-item-btn");
 const returnBtn = document.querySelector(".modal-return-btn");
 const addSectionContainer = document.getElementById("popup-section-add");
+const rmvSectionContainer = document.getElementById("popup-section-remove");
 addItemBtn.addEventListener("click", () => {
   addSectionContainer.style.left = "50%";
+  rmvSectionContainer.style.right = "150%";
 });
 returnBtn.addEventListener("click", () => {
-  addSectionContainer.style.left = "250%";
+  addSectionContainer.style.left = "150%";
+  rmvSectionContainer.style.right = "16%";
 });
 
 // Formulaire d'ajout de projet

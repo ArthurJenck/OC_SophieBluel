@@ -323,6 +323,13 @@ input[type="submit"], .add-item-btn {
 	cursor: pointer;
 }
 
+#popup-section-remove {
+	position: absolute;
+	right: 16%;
+	transition: right 0.2s ease-in-out;
+}
+
+
 #popup-section-add input[type="submit"] {
 	background-color: #A7A7A7;
 }
@@ -366,8 +373,9 @@ footer nav ul {
 	left: 50%;
 	transform: translate(-50%, -50%);
 	background-color: #fff;
-	width: auto;
-	max-height: 700px;
+	width: 39rem;
+	height: 39rem;
+	box-sizing: border-box;
 	border-radius: 10px;
 	padding: 4rem 6.6rem 2rem 6.6rem;
 	cursor: default;
@@ -375,7 +383,7 @@ footer nav ul {
 }
 
 #popup section {
-	margin: 0;
+	margin: 0 auto;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -475,13 +483,13 @@ footer nav ul {
 #popup-section-add {
 	position: absolute;
 	top: 0;
-	left: 250%;
+	left: 150%;
 	transform: translate(-50%, 0);
 	background-color: #fff;
 	width: 100%;
 	height: 100%;
 	border-radius: 10px;
-	transition: left 0.3s ease-in-out;
+	transition: left 0.2s ease-in-out;
 }
 
 .modal-return-btn {
