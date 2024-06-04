@@ -157,7 +157,7 @@ document.querySelector(".popup-background").addEventListener("click", (e) => {
   if (e.target === closeModalBtn || e.target === popupBackground) {
     popupBackground.classList.remove("active");
     addSectionContainer.style.left = "250%";
-    rmvSectionContainer.style.right = "50%";
+    rmvSectionContainer.style.right = "16%";
   }
 });
 
@@ -278,23 +278,42 @@ const checkRequired = (img, name, categ) => {
     const errorMessage = document.createElement("p");
     errorMessage.classList.add("popup-error");
     errorMessage.innerText = "Veuillez ajouter le titre du projet.";
-    errorMessage.style.top = "15.7rem";
+    errorMessage.style.top = "16rem";
     formContainer.appendChild(errorMessage);
   } else if (!categ) {
     const errorMessage = document.createElement("p");
     errorMessage.classList.add("popup-error");
     errorMessage.innerText = "Veuillez ajouter la catégorie du projet.";
-    errorMessage.style.top = "21.8rem";
+    errorMessage.style.top = "22.4rem";
     formContainer.appendChild(errorMessage);
   } else {
+    document.querySelector(
+      '#popup-section-add input[type="submit"]'
+    ).style.backgroundColor = "#1D6154";
     return true;
   }
 };
+
+const inputFields = [
+  document.getElementById("file-picture"),
+  document.getElementById("file-title"),
+  document.getElementById("file-category"),
+];
+inputFields.forEach((field) => {
+  field.addEventListener("change", () => {
+    checkRequired(
+      document.getElementById("file-picture").files[0],
+      document.getElementById("file-title").value,
+      document.getElementById("file-category").value
+    );
+  });
+});
 
 const addWork = async () => {
   const workImg = document.getElementById("file-picture").files[0];
   const workName = document.getElementById("file-title").value;
   const wantedCateg = document.getElementById("file-category").value;
+
   if (checkRequired(workImg, workName, wantedCateg)) {
     const fetchBody = new FormData();
     fetchBody.append("image", workImg);
@@ -313,6 +332,7 @@ const addWork = async () => {
     redefineWorks();
     popupBackground.classList.remove("active");
     addSectionContainer.style.left = "250%";
+    rmvSectionContainer.style.right = "16%";
     const confirmMsg = document.createElement("p");
     confirmMsg.classList.add("edit-confirm");
     confirmMsg.innerText = "Projet ajouté";
