@@ -252,6 +252,7 @@ nav img {
 	cursor: pointer;
 	border-radius: 60px;
 	user-select: none;
+	padding: 9px 20.5px;
 }
 
 .filters input:checked+label, .filters label:hover {
