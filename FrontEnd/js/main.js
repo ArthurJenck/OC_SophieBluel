@@ -1,7 +1,6 @@
 // Import des fonctions depuis les fichiers dédiés
 import {
-  updataLStorageWorks,
-  updataLStorageCategs,
+  updateLStorage,
   afficherTravaux,
   genererFiltres,
   fonctionnementFiltres,
@@ -28,13 +27,13 @@ let userData = JSON.parse(window.localStorage.getItem("userData"));
 
 // Si les données ne sont pas encore stockés, on les fetch et les stocke
 if (works === null) {
-  works = await updataLStorageWorks();
+  works = await updateLStorage("works");
 } else {
   works = JSON.parse(works);
 }
 
 if (categories === null) {
-  categories = await updataLStorageCategs();
+  categories = await updateLStorage("categories");
 } else {
   categories = JSON.parse(categories);
 }
@@ -54,7 +53,7 @@ afficherTravaux(works);
  * @return {object}
  */
 export const redefineWorks = async () => {
-  works = await updataLStorageWorks(works);
+  works = await updateLStorage("works");
   afficherTravaux(works);
   modaleAfficherGallerie(works);
   modaleSuppressionProjet(userData.token);
@@ -89,6 +88,7 @@ if (userData) {
   modaleOuvrir();
 
   // Affichage des travaux dans le menu de suppression de projet
+  redefineWorks();
   modaleAfficherGallerie(works);
 
   // Ajout des eventListeners pour fermer la modale
@@ -119,14 +119,21 @@ if (userData) {
   // --- Fonctionnement du formulaire ---
 
   // Vérification qu'il n'y a pas de champ vide dans le formulaire
-
   const inputImg = document.getElementById("file-picture");
   const inputTitle = document.getElementById("file-title");
   const inputCateg = document.getElementById("file-category");
   const inputFields = [inputImg, inputTitle, inputCateg];
   inputFields.forEach((field) => {
     field.addEventListener("change", () => {
-      modaleVerifChamps(inputImg.files[0], inputTitle.value, inputCateg.value);
+      if (inputImg.files[0] && inputTitle.value && inputCateg.value) {
+        document.querySelector(
+          '#popup-section-add input[type="submit"]'
+        ).style.backgroundColor = "#1D6154";
+      } else {
+        document.querySelector(
+          '#popup-section-add input[type="submit"]'
+        ).style.backgroundColor = "#A7A7A7";
+      }
     });
   });
 

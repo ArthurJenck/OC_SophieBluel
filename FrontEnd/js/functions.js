@@ -1,28 +1,14 @@
 export /**
- * Cette fonction prend un objet en paramètre et met à jour cet objet dans le localStorage depuis l'API.
- * @param {object} data
+ * Cette fonction prend un type de donnée en paramètre (travaux ou catégories) et met à jour ces données dans le localStorage depuis l'API.
+ * @param {string} typeData
  * @return {object}
  */
-const updataLStorageWorks = async (data) => {
-  data = await fetch("http://localhost:5678/api/works").then((response) =>
-    response.json()
+const updateLStorage = async (typeData) => {
+  const data = await fetch(`http://localhost:5678/api/${typeData}`).then(
+    (response) => response.json()
   );
   const arrayFrom = JSON.stringify(data);
-  window.localStorage.setItem("works", arrayFrom);
-  return data;
-};
-
-export /**
- * Cette fonction prend un objet en paramètre et met à jour cet objet dans le localStorage depuis l'API.
- * @param {object} data
- * @return {object}
- */
-const updataLStorageCategs = async (data) => {
-  data = await fetch("http://localhost:5678/api/categories").then((response) =>
-    response.json()
-  );
-  const arrayFrom = JSON.stringify(data);
-  window.localStorage.setItem("categories", arrayFrom);
+  window.localStorage.setItem(typeData, arrayFrom);
   return data;
 };
 
@@ -140,6 +126,7 @@ const domCreerErreur = (errorType) => {
   const errorMessage = document.createElement("p");
   errorMessage.id = `error-${errorType}`;
   errorMessage.style.position = "absolute";
+
   // Modifications selon le type d'erreur
   if (errorType === "mail") {
     errorMessage.style.top = `calc(110rem/16)`;
