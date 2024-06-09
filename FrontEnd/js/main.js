@@ -28,13 +28,13 @@ let userData = JSON.parse(window.localStorage.getItem("userData"));
 
 // Si les données ne sont pas encore stockés, on les fetch et les stocke
 if (works === null) {
-  updataLStorageWorks();
+  works = await updataLStorageWorks();
 } else {
   works = JSON.parse(works);
 }
 
 if (categories === null) {
-  updataLStorageCategs();
+  categories = await updataLStorageCategs();
 } else {
   categories = JSON.parse(categories);
 }
@@ -72,15 +72,11 @@ if (userData) {
   // Ajout de l'indicateur du mode édition au-dessus de la galerie photo
   const editButton = document.createElement("button");
   const portfolioTitleContainer = document.createElement("div");
-
   editButton.innerText = "modifier";
   portfolioTitleContainer.id = "portfolio-title";
-  portfolioTitleContainer;
 
   document.querySelector("#portfolio h2").before(portfolioTitleContainer);
-  document
-    .getElementById("portfolio-title")
-    .append(document.querySelector("#portfolio h2"));
+  portfolioTitleContainer.append(document.querySelector("#portfolio h2"));
   document.getElementById("portfolio-title").append(editButton);
   document.querySelector("#portfolio-title h2").style.margin = "0";
 

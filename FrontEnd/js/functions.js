@@ -111,8 +111,8 @@ const fonctionnementFiltres = (ogList) => {
 
 export /**
  * Cette fonction prend le jeton d'authentification en paramètre et déconnecte l'utilisateur, le sortant du mode édition.
- * @param {object} ogList
- * @return {object}
+ * @param {string} token
+ * @return {boolean}
  */
 const logOut = (token) => {
   const navLnks = document.querySelectorAll("nav li");
@@ -125,15 +125,15 @@ const logOut = (token) => {
     location.reload();
   });
 
-  return token;
+  return true;
 };
 
 // --- Login page ---
 
 export /**
- * Cette fonction prend un type d'erreur en paramètre et crée la balise correspondante en DOM
+ * Cette fonction prend un type d'erreur en paramètre et crée la balise correspondante en DOM.
  * @param {string} error
- * @return {object}
+ * @return {error}
  */
 const domCreerErreur = (errorType) => {
   // Affichage du message d'erreur pour l'utilisateur
@@ -165,6 +165,7 @@ const domCreerErreur = (errorType) => {
 export /**
  * Cette fonction prend une donnee ainsi que son type (adresse-mail ou mot de passe) en paramètre et valide qu'il est au bon format.
  * @param {string} donnee
+ * @param {string} typeDonnee
  * @return {boolean}
  */
 const validerDonnees = (donnee, typeDonnee) => {
@@ -197,14 +198,15 @@ const validerDonnees = (donnee, typeDonnee) => {
     return true;
   } else if (typeDonnee === "password") {
     domCreerErreur("password");
+    return false;
   }
 };
 
 export /**
- * Cette fonction prend un mail et un mot de passe en paramètres et retourne un nombre.
+ * Cette fonction prend un mail et un mot de passe en paramètres et renvoie le statut de connexion.
  * @param {string} mail
  * @param {string} password
- * @return {number}
+ * @return {object}
  */
 const envoyerIds = async (mail, password) => {
   // Création de l'objet des identifiants à envoyer
